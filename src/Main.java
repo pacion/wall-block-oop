@@ -16,7 +16,7 @@ public class Main {
                 .setMaterial(block3.getMaterial())
                 .build();
 
-        var wall = new Wall(List.of(block1, block2, compositeBlock1));
+        var wall = Wall.createWith(List.of(block1, block2, compositeBlock1));
 
         var count = wall.count();
 

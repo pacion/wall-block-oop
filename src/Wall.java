@@ -5,8 +5,12 @@ import java.util.stream.Stream;
 public class Wall implements Structure {
     private List<Block> blocks;
 
-    public Wall(List<Block> blocks) {
+    private Wall(List<Block> blocks) {
         this.blocks = blocks;
+    }
+
+    public static Wall createWith(List<Block> blocks) {
+        return new Wall(blocks);
     }
 
     @Override
