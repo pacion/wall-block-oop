@@ -31,8 +31,6 @@ class WallTest extends BaseTest {
         compositeBlock = new SimpleCompositeBlock.Builder()
                 .addBlock(blueMetalBlock1)
                 .addBlock(blueMetalBlock2)
-                .setColor(blueMetalBlock2.getColor())
-                .setMaterial(blueMetalBlock2.getMaterial())
                 .build();
 
         wall = Wall.createWith(List.of(redMetalBlock, compositeBlock, greenWoodenBlock));
