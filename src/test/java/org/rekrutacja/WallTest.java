@@ -64,7 +64,7 @@ class WallTest extends BaseTest {
         var foundBlock = wall.findBlockByColor(BLUE_COLOR);
 
         assertTrue(foundBlock.isPresent());
-        assertEquals(foundBlock.get(), compositeBlock);
+        assertEquals(foundBlock.get(), blueMetalBlock1);
         assertEquals(BLUE_COLOR, compositeBlock.getColor());
     }
 
