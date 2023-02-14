@@ -89,4 +89,19 @@ class WallTest extends BaseTest {
 
         assertEquals(0, foundBlocks.size());
     }
+
+    @Test
+    void shouldAddBlockToCompositeBlock() {
+        var newCompositeBlock = new SimpleCompositeBlock.Builder()
+                .addBlock(blueMetalBlock1)
+                .build();
+
+        newCompositeBlock.addBlock(blueMetalBlock2);
+
+        assertEquals(2, newCompositeBlock.getBlocks().size());
+
+        newCompositeBlock.removeBlock(blueMetalBlock2);
+
+        assertEquals(1, newCompositeBlock.getBlocks().size());
+    }
 }
