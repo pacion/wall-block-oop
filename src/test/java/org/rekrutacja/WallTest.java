@@ -1,12 +1,15 @@
 package test.java.org.rekrutacja;
 
-import main.java.org.rekrutacja.*;
+import main.java.org.rekrutacja.SimpleBlock;
+import main.java.org.rekrutacja.SimpleCompositeBlock;
+import main.java.org.rekrutacja.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class WallTest extends BaseTest {
 
@@ -21,7 +24,7 @@ class WallTest extends BaseTest {
     private
 
     @BeforeEach
-    void setUp() {
+    void initContentForTests() {
         redMetalBlock = SimpleBlock.createWith(RED_COLOR, METAL_MATERIAL);
         blueMetalBlock1 = SimpleBlock.createWith(BLUE_COLOR, METAL_MATERIAL);
         blueMetalBlock2 = SimpleBlock.createWith(BLUE_COLOR, METAL_MATERIAL);
@@ -64,7 +67,7 @@ class WallTest extends BaseTest {
         var foundBlock = wall.findBlockByColor(BLUE_COLOR);
 
         assertTrue(foundBlock.isPresent());
-        assertEquals(foundBlock.get(), blueMetalBlock1);
+        assertEquals(foundBlock.get(), compositeBlock);
         assertEquals(BLUE_COLOR, compositeBlock.getColor());
     }
 
@@ -99,9 +102,31 @@ class WallTest extends BaseTest {
         newCompositeBlock.addBlock(blueMetalBlock2);
 
         assertEquals(2, newCompositeBlock.getBlocks().size());
+    }
 
-        newCompositeBlock.removeBlock(blueMetalBlock2);
+    @Test
+    void shouldRemoveBlockFromCompositeBlock() {
+        var testCompositeBlock = new SimpleCompositeBlock.Builder()
+                .addBlock(blueMetalBlock1)
+                .build();
 
-        assertEquals(1, newCompositeBlock.getBlocks().size());
+        testCompositeBlock.removeBlock(blueMetalBlock1);
+
+        assertEquals(0, testCompositeBlock.getBlocks().size());
+    }
+
+    @Test
+    void shouldGetUniqueBlocksNumber() {
+        var testCompositeBlock = new SimpleCompositeBlock.Builder()
+                .addBlock(blueMetalBlock1)
+                .addBlock(blueMetalBlock1)
+                .addBlock(blueMetalBlock1)
+                .build();
+
+        var testWall = Wall.createWith(List.of(testCompositeBlock, testCompositeBlock, blueMetalBlock2));
+
+        var foundBlocks = testWall.findBlocksByMaterial(blueMetalBlock1.getMaterial());
+
+        assertEquals(2, foundBlocks.size());
     }
 }
